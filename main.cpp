@@ -53,7 +53,8 @@ void duomenu_ivedimas(vector < Studentas > &grupe)
 
 void vidurkis(Studentas &x)
 {
-
+    double sum = accumulate(x.paz.begin(), x.paz.end(), 0.0);
+    x.rez = sum /(x.paz.size()*1.0) * 0.4 + x.egz_paz * 0.6;
 }
 
 void mediana(Studentas &x)
@@ -61,7 +62,7 @@ void mediana(Studentas &x)
 
 }
 
-void rezultatai (vector < Studentas > grupe)
+void rezultatai (vector < Studentas > &grupe)
 {
     int formatas;
     cout << "Prašau pasirinkite ar norite galutinį balą skaičiuoti su vidurkiu ar mediana. (Vidurkiu - 0, mediana - 1): ";
@@ -73,7 +74,7 @@ void rezultatai (vector < Studentas > grupe)
     {
         cout << std::setw(20) << "Galutinis (Vid.)" << endl;
         cout << "---------------------------------------------------------" << endl;
-        for (auto x : grupe)
+        for (auto &x : grupe)
         {
             vidurkis(x);
             cout << left << setw(20) << x.Pavarde << setw(20) << x.Vardas << setw(20) << std::fixed << std::setprecision(2) << x.rez << endl;
