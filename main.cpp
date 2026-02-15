@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include <numeric>
+#include <algorithm>
 
 using std:: string;
 using std:: vector;
@@ -59,7 +60,18 @@ void vidurkis(Studentas &x)
 
 void mediana(Studentas &x)
 {
+    double mediana;
+    sort(x.paz.begin(), x.paz.end());
 
+    if (x.paz.size() % 2 == 0)
+    {
+        mediana = (x.paz[x.paz.size() / 2 - 1] + x.paz[x.paz.size() / 2]) / 2.0;
+    }
+    else
+    {
+        mediana = x.paz[x.paz.size() / 2];
+    }
+    x.rez = mediana * 0.4 + x.egz_paz * 0.6;
 }
 
 void rezultatai (vector < Studentas > &grupe)
@@ -85,7 +97,7 @@ void rezultatai (vector < Studentas > &grupe)
     {
         cout << std::setw(20) << "Galutinis (Med.)" << endl;
         cout << "---------------------------------------------------------" << endl;
-        for (auto x : grupe)
+        for (auto &x : grupe)
         {
         mediana(x);
         cout << left << setw(20) << x.Pavarde << setw(20) << x.Vardas << setw(20) << std::fixed << std::setprecision(2) << x.rez << endl;
@@ -105,4 +117,3 @@ int main(){
 }
 
 
-//isdigit - kaip patikrinti  ar int ivede skaiciu
