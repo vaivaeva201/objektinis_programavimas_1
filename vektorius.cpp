@@ -149,11 +149,74 @@ void rezultatai (vector < Studentas > &grupe)
 
 }
 
+void meniu(vector < Studentas > &grupe)
+{
+    int pasirinkimas = 0;
+
+    while(pasirinkimas != 4)
+    {    
+        cout << endl;
+        cout << "Pasirinkite programos eigą: " << endl;
+        cout << "-----------------------------------------------------------" << endl;
+        cout << "1 - Viską įvesti ranka;" << endl;
+        cout << "2 - Generuoti pažymius;" << endl;
+        cout << "3 - Generuoti studentų vardus, pavardes ir pažymius;" << endl;
+        cout << "4 - Baigti darbą;" << endl;
+        cin >> pasirinkimas;
+        cout << endl;
+
+        switch(pasirinkimas)
+        {
+            case 1:
+                cout << "Pasirinkote viską įvesti ranka " << endl;
+                cout << "-----------------------------------------------------------" << endl;
+                duomenu_ivedimas(grupe);
+                rezultatai (grupe);
+                
+                break;
+
+            case 2:
+            {
+                cout << "Pasirinkote generuoti pažymius " << endl;
+                cout << "-----------------------------------------------------------" << endl;
+                Studentas A;
+
+                while(true)
+                {
+                    int n, temp;
+                    cout << "Įveskite studento vardą (jeigu įvedetė visus norimus studentus įrašykite 'x'): ";
+                    cin >> A.Vardas;
+                    if (A.Vardas == "x")
+                    {
+                        break;
+                    }
+                    cout << "Įveskite studento pavardę: ";
+                    cin >> A.Pavarde;
+
+                    grupe.push_back(A);
+                    A.paz.clear();
+                }  
+                break;
+            }    
+            case 3:
+                cout << "Pasirinkote generuoti studentų vardus, pavardes ir pažymius " << endl;
+                cout << "-----------------------------------------------------------" << endl;
+                break;
+            case 4:
+                cout << "Pasirinkote baigti darbą " << endl;
+                cout << "-----------------------------------------------------------" << endl;
+                break;
+            default: 
+                cout << "Prašau įveskite vieną iš duotų variantų " << endl; 
+        }  
+    }          
+}
+
+
 int main(){
 
     vector < Studentas > grupe;
-    duomenu_ivedimas (grupe);
-    rezultatai (grupe);
+    meniu (grupe);
     
     return 0;
 }
