@@ -5,6 +5,8 @@
 #include <numeric>
 #include <algorithm>
 #include <limits>
+#include <random>
+#include "RandInt.hpp"
 
 using std:: string;
 using std:: vector;
@@ -23,7 +25,7 @@ struct Studentas {
     double rez;
 };
 
-void duomenu_ivedimas(vector < Studentas > &grupe)
+void duomenu_ivedimas(vector < Studentas > &grupe) //getline !!!!!!!!
 {
     Studentas A;
 
@@ -102,6 +104,20 @@ void mediana(Studentas &x)
     x.rez = mediana * 0.4 + x.egz_paz * 0.6;
 }
 
+void skaiciu_generevimas(Studentas &A) //???????????????
+{
+
+    RandInt rnd{1, 10};
+    int kiek = rnd();
+    for (int i = 0; i < kiek; i++)
+    {
+       A.paz.push_back(rnd());
+    }
+
+    A.egz_paz = rnd();
+
+}
+
 void rezultatai (vector < Studentas > &grupe)
 {
     int formatas;
@@ -162,8 +178,22 @@ void meniu(vector < Studentas > &grupe)
         cout << "2 - Generuoti pažymius;" << endl;
         cout << "3 - Generuoti studentų vardus, pavardes ir pažymius;" << endl;
         cout << "4 - Baigti darbą;" << endl;
-        cin >> pasirinkimas;
         cout << endl;
+
+        while (true)
+        {
+        cin >> pasirinkimas;
+            if (cin.fail() || cin.peek() != '\n' || pasirinkimas < 1 || pasirinkimas > 4)
+            {
+                cout << "Prašau įveskite vieną iš duotų variantų ";
+                cin.clear();
+                cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            }
+            else
+            {
+                break;               
+            }
+        }
 
         switch(pasirinkimas)
         {
@@ -179,10 +209,10 @@ void meniu(vector < Studentas > &grupe)
             {
                 cout << "Pasirinkote generuoti pažymius " << endl;
                 cout << "-----------------------------------------------------------" << endl;
-                Studentas A;
 
                 while(true)
                 {
+                    Studentas A;
                     int n, temp;
                     cout << "Įveskite studento vardą (jeigu įvedetė visus norimus studentus įrašykite 'x'): ";
                     cin >> A.Vardas;
@@ -192,10 +222,12 @@ void meniu(vector < Studentas > &grupe)
                     }
                     cout << "Įveskite studento pavardę: ";
                     cin >> A.Pavarde;
-
+                    skaiciu_generevimas(A);
                     grupe.push_back(A);
                     A.paz.clear();
-                }  
+                } 
+                rezultatai (grupe);
+
                 break;
             }    
             case 3:
