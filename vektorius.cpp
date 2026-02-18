@@ -25,21 +25,22 @@ struct Studentas {
     double rez;
 };
 
-void duomenu_ivedimas(vector < Studentas > &grupe) //getline !!!!!!!!
+void duomenu_ivedimas(vector < Studentas > &grupe)
 {
     Studentas A;
 
     while(true)
     {
         int n, temp;
+        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         cout << "Įveskite studento vardą (jeigu įvedetė visus norimus studentus įrašykite 'x'): ";
-        cin >> A.Vardas;
+        getline(cin, A.Vardas);
         if (A.Vardas == "x")
         {
             break;
         }
         cout << "Įveskite studento pavardę: ";
-        cin >> A.Pavarde;
+        getline(cin, A.Pavarde);
 
         cout << "Įveskite semestro pažymius (jeigu įvedetė visus norimus pažymius įrašykite '-1'):" << endl;
         while (true)
@@ -59,7 +60,7 @@ void duomenu_ivedimas(vector < Studentas > &grupe) //getline !!!!!!!!
             }
         }
         
-        cout << "Įveskite egzamoni pažymį: ";
+        cout << "Įveskite egzamino pažymį: ";
         while (true)
         {
             cin >> A.egz_paz;   
@@ -104,7 +105,7 @@ void mediana(Studentas &x)
     x.rez = mediana * 0.4 + x.egz_paz * 0.6;
 }
 
-void skaiciu_generevimas(Studentas &A) //???????????????
+void skaiciu_generevimas(Studentas &A)
 {
 
     RandInt rnd{1, 10};
@@ -209,19 +210,19 @@ void meniu(vector < Studentas > &grupe)
             {
                 cout << "Pasirinkote generuoti pažymius " << endl;
                 cout << "-----------------------------------------------------------" << endl;
-
+                cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                 while(true)
                 {
                     Studentas A;
                     int n, temp;
                     cout << "Įveskite studento vardą (jeigu įvedetė visus norimus studentus įrašykite 'x'): ";
-                    cin >> A.Vardas;
+                    getline(cin, A.Vardas);
                     if (A.Vardas == "x")
                     {
                         break;
                     }
                     cout << "Įveskite studento pavardę: ";
-                    cin >> A.Pavarde;
+                    getline(cin, A.Pavarde);
                     skaiciu_generevimas(A);
                     grupe.push_back(A);
                     A.paz.clear();
@@ -231,9 +232,38 @@ void meniu(vector < Studentas > &grupe)
                 break;
             }    
             case 3:
+            {
                 cout << "Pasirinkote generuoti studentų vardus, pavardes ir pažymius " << endl;
                 cout << "-----------------------------------------------------------" << endl;
+                int max = 10;
+                RandInt rnd{1, max};
+                int kiek = rnd();
+
+                for (int i = 0; i < kiek; i++) 
+                {
+                    Studentas A;
+                    RandInt rnd_index(0, 9); 
+
+                    string vardai[10] = {"Emilija", "Alma", "Viktorija", "Egle", "Ieva", "Petras", "Jonas", "Titas", "Matas", "Lukas"};
+                    string pavardes_m[10] = {"Pavardaite1", "Pavardaite2", "Pavardaite3", "Pavardaite4", "Pavardaite5", "Pavardaite6", "Pavardaite7", "Pavardaite8", "Pavardaite9", "Pavardaite10"};
+                    string pavardes_v[10] = {"Pavardenis1", "Pavardenis2", "Pavardenis3", "Pavardenis4", "Pavardenis5", "Pavardenis6", "Pavardenis7", "Pavardenis8", "Pavardenis9", "Pavardenis10"};
+                    A.Vardas = vardai[rnd_index()];
+
+                    if (*A.Vardas.rbegin() == 's') 
+                    {
+                        A.Pavarde = pavardes_v[rnd_index()];
+                    } 
+                    else 
+                    {
+                        A.Pavarde = pavardes_m[rnd_index()];
+                    }
+                    skaiciu_generevimas(A);
+                    grupe.push_back(A);
+                }
+                rezultatai (grupe);
+
                 break;
+            }    
             case 4:
                 cout << "Pasirinkote baigti darbą " << endl;
                 cout << "-----------------------------------------------------------" << endl;
