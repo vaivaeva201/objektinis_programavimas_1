@@ -8,6 +8,9 @@
 #include <random>
 #include "RandInt.hpp"
 
+#include <fstream>
+#include <sstream>
+
 using std:: string;
 using std:: vector;
 using std:: cout;
@@ -24,6 +27,37 @@ struct Studentas {
     int egz_paz;
     double rez;
 };
+
+void skaityti_faila(vector < Studentas > &grupe)
+{
+    std:: ifstream fd("kursiokai.txt");
+    std:: stringstream buferis;
+    string eil;
+
+    if (!fd)
+    {
+        std:: cerr << "Klaida: nepavyko atidaryti failo!" << endl;
+        return;
+    }
+    buferis << fd.rdbuf();
+    fd.close();
+    getline(buferis, eil);
+
+    while(getline(buferis, eil))
+    {
+        Studentas A;
+        std:: istringstream eilute(eil);
+        eilute >> A.Vardas >> A.Pavarde;
+        int pazymys;
+        while (eilute >> pazymys)
+        {
+            A.paz .push_back(pazymys);
+        }
+        A.egz_paz = A.paz.back();
+        A.paz.pop_back();
+        grupe.push_back(A);
+    }
+}
 
 void duomenu_ivedimas(vector < Studentas > &grupe)
 {
@@ -170,7 +204,7 @@ void meniu(vector < Studentas > &grupe)
 {
     int pasirinkimas = 0;
 
-    while(pasirinkimas != 4)
+    while(pasirinkimas != 5)
     {    
         cout << endl;
         cout << "Pasirinkite programos eigą: " << endl;
@@ -178,13 +212,14 @@ void meniu(vector < Studentas > &grupe)
         cout << "1 - Viską įvesti ranka;" << endl;
         cout << "2 - Generuoti pažymius;" << endl;
         cout << "3 - Generuoti studentų vardus, pavardes ir pažymius;" << endl;
-        cout << "4 - Baigti darbą;" << endl;
+        cout << "4 - Nuskaityti duomenis iš failo;" << endl;
+        cout << "5 - Baigti darbą;" << endl;
         cout << endl;
 
         while (true)
         {
         cin >> pasirinkimas;
-            if (cin.fail() || cin.peek() != '\n' || pasirinkimas < 1 || pasirinkimas > 4)
+            if (cin.fail() || cin.peek() != '\n' || pasirinkimas < 1 || pasirinkimas > 5)
             {
                 cout << "Prašau įveskite vieną iš duotų variantų ";
                 cin.clear();
@@ -263,10 +298,16 @@ void meniu(vector < Studentas > &grupe)
                 rezultatai (grupe);
 
                 break;
-            }    
+            } 
             case 4:
+                cout << "Pasirinkote nuskaityti duomenis iš failo " << endl;
+                cout << "-----------------------------------------------------------" << endl;
+
+                break;   
+            case 5:
                 cout << "Pasirinkote baigti darbą " << endl;
                 cout << "-----------------------------------------------------------" << endl;
+
                 break;
             default: 
                 cout << "Prašau įveskite vieną iš duotų variantų " << endl; 
