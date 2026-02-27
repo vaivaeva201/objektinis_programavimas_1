@@ -1,0 +1,12 @@
+Pavardė            Vardas              Galutinis (Med.)    
+-----------------------------------------------------------
+Pavarde1            Vardas1             5.60                
+Pavarde2            Vardas2             7.00                
+Pavarde3            Vardas3             8.20                
+Pavarde4            Vardas4             9.60                
+Pavarde5            Vardas5             6.20                
+Pavarde6            Vardas6             6.80                
+Pavarde7            Vardas7             9.00                
+Pavarde8            Vardas8             5.60                
+Pavarde9            Vardas9             6.60                
+Pavarde10           Vardas10            9.00                

@@ -200,6 +200,80 @@ void rezultatai (vector < Studentas > &grupe)
 
 }
 
+void rezultatu_isvedimas(vector < Studentas > &grupe)
+{
+    int formatas;
+    cout << "Prašau pasirinkite ar norite galutinį balą skaičiuoti su vidurkiu ar mediana. (Vidurkiu - 0, mediana - 1): ";
+    while (true)
+    {
+        cin >> formatas;
+
+        if (cin.fail() || cin.peek() != '\n' || (formatas != 1 && formatas !=0))
+        {
+            cout << "Neteisingas skaičius! Įveskite 0 arba 1: ";
+            cin.clear();
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
+        else
+        {
+            break;
+        }
+    }
+    cout << endl;
+
+    std::ostringstream buferis;
+    string antraste = (formatas == 0) ? "Galutinis (Vid.)" : "Galutinis (Med.)";
+    buferis << left << setw(20) << "Pavardė" << setw(20) << "Vardas" << setw(20) << antraste << endl;
+    buferis << "-----------------------------------------------------------" << endl;
+
+    for (auto &x : grupe) {
+        if (formatas == 0) vidurkis(x);
+        else mediana(x);
+        buferis << left << setw(20) << x.Pavarde << setw(20) << x.Vardas << setw(20) << std::fixed << std::setprecision(2) << x.rez << endl;
+    }
+
+    int pasirinkimas = 0;
+
+    cout << "Pasirinkite kur norite matyti rezultatus: " << endl;
+    cout << "-----------------------------------------------------------" << endl;
+    cout << "1 - Komandinėje eilutėje;" << endl;
+    cout << "2 - Faile;" << endl;
+    cout << endl;
+
+    while (true)
+        {
+        cin >> pasirinkimas;
+            if (cin.fail() || cin.peek() != '\n' || pasirinkimas < 1 || pasirinkimas > 2)
+            {
+                cout << "Prašau įveskite vieną iš duotų variantų ";
+                cin.clear();
+                cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            }
+            else
+            {
+                break;               
+            }
+        }
+
+    switch(pasirinkimas)
+    {
+        case 1:
+            cout << buferis.str();
+            break;
+        case 2:
+        {
+            std::ofstream fr("studentuRezultatai.txt");
+            fr << buferis.str();
+            fr.close();
+            break;
+        }    
+        default: 
+                cout << "Prašau įveskite vieną iš duotų variantų " << endl; 
+
+    }   
+
+}
+
 void meniu(vector < Studentas > &grupe)
 {
     int pasirinkimas = 0;
@@ -302,6 +376,8 @@ void meniu(vector < Studentas > &grupe)
             case 4:
                 cout << "Pasirinkote nuskaityti duomenis iš failo " << endl;
                 cout << "-----------------------------------------------------------" << endl;
+                skaityti_faila(grupe);
+                rezultatu_isvedimas(grupe);
 
                 break;   
             case 5:
