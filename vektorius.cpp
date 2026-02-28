@@ -49,7 +49,24 @@ void skaiciuoti_viska(Studentas &x)
 
 void skaityti_faila(vector < Studentas > &grupe)
 {
-    std:: ifstream fd("kursiokai.txt");
+    string failas;
+    std:: ifstream fd;
+    while (true)
+    {
+        system("ls *.txt");
+        cout<<"Ivesk failo pavadinima: ";
+        cin>>failas;
+        fd.open(failas);
+        if (fd)
+        {
+            break;
+        }
+        else
+        {
+            std:: cerr << "Failas nerastas! Bandykite dar kartą " << endl;
+        }
+
+    }
     std:: stringstream buferis;
     string eil;
 
@@ -456,7 +473,7 @@ void meniu(vector < Studentas > &grupe)
                 cout << "Pasirinkote nuskaityti duomenis iš failo " << endl;
                 cout << "-----------------------------------------------------------" << endl;
                 skaityti_faila(grupe);
-
+                rikiavimas(grupe);
                 rezultatu_isvedimas(grupe);
 
                 break;   
