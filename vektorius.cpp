@@ -9,6 +9,7 @@
 #include "RandInt.hpp"
 #include <fstream>
 #include <sstream>
+#include <chrono>
 
 using std:: string;
 using std:: vector;
@@ -65,8 +66,10 @@ void skaityti_faila(vector < Studentas > &grupe)
         {
             std:: cerr << "Failas nerastas! Bandykite dar kartą " << endl;
         }
-
     }
+
+    auto start = std::chrono::high_resolution_clock::now();
+
     std:: stringstream buferis;
     string eil;
 
@@ -94,6 +97,9 @@ void skaityti_faila(vector < Studentas > &grupe)
         skaiciuoti_viska(A);
         grupe.push_back(A);
     }
+    auto end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> diff = end - start;
+    cout << "Failo nuskaitymas ir skaičiavimai užtruko: " << diff.count() << " s" << endl;
 }
 
 void duomenu_ivedimas(vector < Studentas > &grupe)

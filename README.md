@@ -1,8 +1,11 @@
 # Pirmas_Laboratorinis
 
-v0.1 versija
+v0.2 versija
 
-Tai programa, kuri padeda apskaičiuoti studentų galutinius pažymius pagal vidurkį arba pagal mediana ir rezultatus parodo lentelės formatu.
-Vartotojas pasinaudodamas meniu gali pasirinkti ar jis nori visus duomenis vesti ranka ar nori, kad pažymiai, vardai, pavardės butų sugeneruotos atsitiktinai.
-Kad sumažinti klaidas, programa tikrina ar vartotojas teisingai įvedė pažymius (tik sveikuosius skaičius intervale [1; 10]).
-Viskas realizuota dviem būdais: duomenis saugant į vektorius ir duomenis saugant į C masyvus.
+Ši versija suteikia galimybę vartotojui pasirinkti, kad visi duomenys būtų nuskaityti iš failų. Taip pat vartotojas gali pasirinkti kaip surikiuoti rezultatus (pasirinkti iš kelių duotų kriterijų) ir nuspręsti ar rezultatus nori matyti ekrane ar faile.
+
+Testatimas:
+Failo nuskaitymo laikų vidurkiai:
+10 000 eilučių: 0.156 sec;
+100 000 eilučių: 1.59 sec;
+1 000 0000 eilučių: 9.813.
