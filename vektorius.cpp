@@ -7,7 +7,6 @@
 #include <limits>
 #include <random>
 #include "RandInt.hpp"
-
 #include <fstream>
 #include <sstream>
 
@@ -26,6 +25,7 @@ struct Studentas {
     vector <int> paz;
     int egz_paz;
     double rez;
+    double Vidurkis, Mediana;
 };
 
 void skaityti_faila(vector < Studentas > &grupe)
@@ -274,6 +274,86 @@ void rezultatu_isvedimas(vector < Studentas > &grupe)
 
 }
 
+bool pagal_varda(const Studentas &a, const Studentas &b) 
+{ 
+    return a.Vardas < b.Vardas; 
+}
+
+bool pagal_pavarde(const Studentas &a, const Studentas &b) 
+{ 
+    return a.Pavarde < b.Pavarde; 
+}
+bool pagal_vid_did(const Studentas &a, const Studentas &b) 
+{ 
+    return a.Vidurkis < b.Vidurkis; 
+}
+bool pagal_vid_maz(const Studentas &a, const Studentas &b) 
+{ 
+    return a.Vidurkis > b.Vidurkis; 
+}
+
+bool pagal_med_did(const Studentas &a, const Studentas &b) 
+{ 
+    return a.Mediana < b.Mediana; 
+}
+bool pagal_med_maz(const Studentas &a, const Studentas &b) 
+{ 
+    return a.Mediana > b.Mediana; 
+}
+
+void rikiavimas(vector < Studentas > &grupe)
+{
+    int pasirinkimas = 0;
+    cout << "Pasirinkite rikiavimo būdą:" << endl;
+    cout << "-----------------------------------------------------------" << endl;
+    cout << "1 - Rikiuoti pagal vardą;" << endl;
+    cout << "2 - Rikiuoti pagal pavardę;" << endl;
+    cout << "3 - Rikiuoti pagal vidurkį (nuo mažiausio iki didžiausio);" << endl;
+    cout << "4 - Rikiuoti pagal vidurkį (nuo didžiausio iki mažiausio);" << endl;
+    cout << "5 - Rikiuioti pagal mediana (nuo mažiausio iki didžiausio);" << endl;
+    cout << "6 - Rikiuoti pagal mediana (nuo didžiausio iki mažiausio);" << endl;
+    cout << endl;
+
+    while (true)
+    {
+        cin >> pasirinkimas;
+            if (cin.fail() || cin.peek() != '\n' || pasirinkimas < 1 || pasirinkimas > 6)
+            {
+                cout << "Prašau įveskite vieną iš duotų variantų ";
+                cin.clear();
+                cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            }
+            else
+            {
+                break;               
+            }
+    }
+
+    switch (pasirinkimas)
+    {
+    case 1:
+        std::sort(grupe.begin(), grupe.end(), pagal_varda);
+        break;
+    case 2:
+        std::sort(grupe.begin(), grupe.end(), pagal_pavarde);
+        break;
+    case 3:
+        std::sort(grupe.begin(), grupe.end(), pagal_vid_did);
+        break;
+    case 4:
+        std::sort(grupe.begin(), grupe.end(), pagal_vid_maz);
+        break;
+    case 5:
+        std::sort(grupe.begin(), grupe.end(), pagal_med_did);
+        break;
+    case 6:
+        std::sort(grupe.begin(), grupe.end(), pagal_med_maz);
+        break;
+    default:
+        cout << "Prašau įveskite vieną iš duotų variantų " << endl; 
+    }
+}
+
 void meniu(vector < Studentas > &grupe)
 {
     int pasirinkimas = 0;
@@ -292,17 +372,17 @@ void meniu(vector < Studentas > &grupe)
 
         while (true)
         {
-        cin >> pasirinkimas;
-            if (cin.fail() || cin.peek() != '\n' || pasirinkimas < 1 || pasirinkimas > 5)
-            {
-                cout << "Prašau įveskite vieną iš duotų variantų ";
-                cin.clear();
-                cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            }
-            else
-            {
-                break;               
-            }
+            cin >> pasirinkimas;
+                if (cin.fail() || cin.peek() != '\n' || pasirinkimas < 1 || pasirinkimas > 5)
+                {
+                    cout << "Prašau įveskite vieną iš duotų variantų ";
+                    cin.clear();
+                    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                }
+                else
+                {
+                    break;               
+                }
         }
 
         switch(pasirinkimas)
