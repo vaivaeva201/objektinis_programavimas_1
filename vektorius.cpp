@@ -28,6 +28,25 @@ struct Studentas {
     double Vidurkis, Mediana;
 };
 
+void skaiciuoti_viska(Studentas &x)
+{
+    double sum = accumulate(x.paz.begin(), x.paz.end(), 0.0);
+    x.Vidurkis = sum /(x.paz.size()*1.0) * 0.4 + x.egz_paz * 0.6;
+
+    double mediana;
+    sort(x.paz.begin(), x.paz.end());
+
+    if (x.paz.size() % 2 == 0)
+    {
+        mediana = (x.paz[x.paz.size() / 2 - 1] + x.paz[x.paz.size() / 2]) / 2.0;
+    }
+    else
+    {
+        mediana = x.paz[x.paz.size() / 2];
+    }
+    x.Mediana= mediana * 0.4 + x.egz_paz * 0.6;    
+}
+
 void skaityti_faila(vector < Studentas > &grupe)
 {
     std:: ifstream fd("kursiokai.txt");
@@ -55,6 +74,7 @@ void skaityti_faila(vector < Studentas > &grupe)
         }
         A.egz_paz = A.paz.back();
         A.paz.pop_back();
+        skaiciuoti_viska(A);
         grupe.push_back(A);
     }
 }
@@ -202,34 +222,13 @@ void rezultatai (vector < Studentas > &grupe)
 
 void rezultatu_isvedimas(vector < Studentas > &grupe)
 {
-    int formatas;
-    cout << "Prašau pasirinkite ar norite galutinį balą skaičiuoti su vidurkiu ar mediana. (Vidurkiu - 0, mediana - 1): ";
-    while (true)
-    {
-        cin >> formatas;
-
-        if (cin.fail() || cin.peek() != '\n' || (formatas != 1 && formatas !=0))
-        {
-            cout << "Neteisingas skaičius! Įveskite 0 arba 1: ";
-            cin.clear();
-            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        }
-        else
-        {
-            break;
-        }
-    }
-    cout << endl;
 
     std::ostringstream buferis;
-    string antraste = (formatas == 0) ? "Galutinis (Vid.)" : "Galutinis (Med.)";
-    buferis << left << setw(20) << "Pavardė" << setw(20) << "Vardas" << setw(20) << antraste << endl;
-    buferis << "-----------------------------------------------------------" << endl;
+    buferis << left << setw(20) << "Pavardė" << setw(20) << "Vardas" << setw(20) << "Galutinis (Vid.)" << setw(20) << "Galutinis (Med.)" << endl;
+    buferis << "----------------------------------------------------------------------------" << endl;
 
     for (auto &x : grupe) {
-        if (formatas == 0) vidurkis(x);
-        else mediana(x);
-        buferis << left << setw(20) << x.Pavarde << setw(20) << x.Vardas << setw(20) << std::fixed << std::setprecision(2) << x.rez << endl;
+        buferis << left << setw(20) << x.Pavarde << setw(20) << x.Vardas << setw(20) << std::fixed << std::setprecision(2) << x.Vidurkis << setw(20) << std::fixed << std::setprecision(2) << x.Mediana << endl;
     }
 
     int pasirinkimas = 0;
@@ -457,6 +456,7 @@ void meniu(vector < Studentas > &grupe)
                 cout << "Pasirinkote nuskaityti duomenis iš failo " << endl;
                 cout << "-----------------------------------------------------------" << endl;
                 skaityti_faila(grupe);
+
                 rezultatu_isvedimas(grupe);
 
                 break;   
