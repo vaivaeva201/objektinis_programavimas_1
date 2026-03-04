@@ -1,3 +1,6 @@
+#ifndef ANTRASTES_H
+#define ANTRASTES_H
+
 #include <iostream>
 #include <iomanip>
 #include <string>
@@ -20,3 +23,5 @@ using std:: setw;
 using std:: left;
 using std:: right;
 using std:: endl;
+
+#endif
