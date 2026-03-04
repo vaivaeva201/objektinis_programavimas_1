@@ -10,5 +10,21 @@ struct Studentas {
     double Vidurkis, Mediana;
 };
 
+void skaiciuoti_viska(Studentas &x);
+void skaityti_faila(vector < Studentas > &grupe);
+void duomenu_ivedimas(vector < Studentas > &grupe);
+void vidurkis(Studentas &x);
+void mediana(Studentas &x);
+void skaiciu_generevimas(Studentas &A);
+void rezultatai (vector < Studentas > &grupe);
+void rezultatu_isvedimas(vector < Studentas > &grupe);
+bool pagal_varda(const Studentas &a, const Studentas &b);
+bool pagal_pavarde(const Studentas &a, const Studentas &b);
+bool pagal_vid_did(const Studentas &a, const Studentas &b);
+bool pagal_vid_maz(const Studentas &a, const Studentas &b);
+bool pagal_med_did(const Studentas &a, const Studentas &b);
+bool pagal_med_maz(const Studentas &a, const Studentas &b);
+void rikiavimas(vector < Studentas > &grupe);
+void meniu(vector < Studentas > &grupe);
 
 #endif
