@@ -99,35 +99,54 @@ void duomenu_ivedimas(vector < Studentas > &grupe)
         cout << "Įveskite semestro pažymius (jeigu įvedetė visus norimus pažymius įrašykite '-1'):" << endl;
         while (true)
         {
-            cin >> temp;
-            if (temp == -1)
-                break;
-            if (cin.fail() || cin.peek() != '\n' || temp < 1 || temp > 10)
+            try
             {
-                cout << "Neteisingas pažymys! Įveskite sveikąjį skaičių nuo 1 iki 10: ";
-                cin.clear();
-                cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                cin >> temp;
+                if(cin.fail() || cin.peek() != '\n')
+                {
+                    cin.clear();
+                    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                    throw std::invalid_argument("Įvedėte ne skaičių.");
+                }
+                if (temp == -1)
+                    break;
+                if(temp < 1 || temp > 10)
+                    throw std::out_of_range("Neteisingas pažymys! Įveskite sveikąjį skaičių nuo 1 iki 10.");
+                A.paz.push_back(temp);
             }
-            else
+            catch(const std::invalid_argument& e)
             {
-                A.paz.push_back(temp);                
+                std::cerr << e.what() << " Įveskite dar kartą: " << endl;
+            }
+            catch(const std::out_of_range& e)
+            {
+                std::cerr << e.what() << " Įveskite dar kartą: " << endl;
             }
         }
         
         cout << "Įveskite egzamino pažymį: ";
         while (true)
-        {
-            cin >> A.egz_paz;   
-
-            if (cin.fail() || cin.peek() != '\n' || A.egz_paz < 1 || A.egz_paz > 10)
+        {   
+            try
             {
-                cout << "Neteisingas pažymys! Įveskite sveikąjį skaičių nuo 1 iki 10: ";
-                cin.clear();
-                cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            }
-            else
-            {
+                cin >> A.egz_paz;   
+                if(cin.fail() || cin.peek() != '\n')
+                {
+                    cin.clear();
+                    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                    throw std::invalid_argument("Įvedėte ne skaičių.");
+                }
+                if(A.egz_paz < 1 || A.egz_paz > 10)
+                    throw std::out_of_range("Neteisingas pažymys! Įveskite sveikąjį skaičių nuo 1 iki 10.");
                 break;
+            }
+            catch(const std::invalid_argument& e)
+            {
+                std::cerr << e.what() << " Įveskite dar kartą: " << endl;
+            }
+            catch(const std::out_of_range& e)
+            {
+                std::cerr << e.what() << " Įveskite dar kartą: " << endl;
             }
         }
 
@@ -178,19 +197,28 @@ void rezultatai (vector < Studentas > &grupe)
     int formatas;
     cout << "Prašau pasirinkite ar norite galutinį balą skaičiuoti su vidurkiu ar mediana. (Vidurkiu - 0, mediana - 1): ";
     while (true)
-    {
-        cin >> formatas;
-
-        if (cin.fail() || cin.peek() != '\n' || (formatas != 1 && formatas !=0))
+    { 
+        try
         {
-            cout << "Neteisingas skaičius! Įveskite 0 arba 1: ";
-            cin.clear();
-            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        }
-        else
-        {
-            break;
-        }
+            cin >> formatas;   
+                if(cin.fail() || cin.peek() != '\n')
+                {
+                    cin.clear();
+                    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                    throw std::invalid_argument("Įvedėte ne skaičių.");
+                }
+                if(formatas != 1 && formatas != 0)
+                    throw std::out_of_range("Neteisingas skaičius! Įveskite 0 arba 1.");
+                break;
+            }
+            catch(const std::invalid_argument& e)
+            {
+                std::cerr << e.what() << " Įveskite dar kartą: " << endl;
+            }
+            catch(const std::out_of_range& e)
+            {
+                std::cerr << e.what() << " Įveskite dar kartą: " << endl;
+            }
     }
 
     cout << left << setw(20) << "Pavardė" << setw(20) << "Vardas";
@@ -240,19 +268,29 @@ void rezultatu_isvedimas(vector < Studentas > &grupe)
     cout << endl;
 
     while (true)
+    { 
+        try
         {
-        cin >> pasirinkimas;
-            if (cin.fail() || cin.peek() != '\n' || pasirinkimas < 1 || pasirinkimas > 2)
-            {
-                cout << "Prašau įveskite vieną iš duotų variantų ";
-                cin.clear();
-                cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            cin >> pasirinkimas;   
+                if(cin.fail() || cin.peek() != '\n')
+                {
+                    cin.clear();
+                    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                    throw std::invalid_argument("Įvedėte ne skaičių.");
+                }
+                if(pasirinkimas < 1 ||  pasirinkimas > 2)
+                    throw std::out_of_range("Neteisingas pasirinkimas! Prašau įveskite vieną iš duotų variantų.");
+                break;
             }
-            else
+            catch(const std::invalid_argument& e)
             {
-                break;               
+                std::cerr << e.what() << " Įveskite dar kartą: " << endl;
             }
-        }
+            catch(const std::out_of_range& e)
+            {
+                std::cerr << e.what() << " Įveskite dar kartą: " << endl;
+            }
+    }
 
     switch(pasirinkimas)
     {
@@ -317,17 +355,27 @@ void rikiavimas(vector < Studentas > &grupe)
     cout << endl;
 
     while (true)
-    {
-        cin >> pasirinkimas;
-            if (cin.fail() || cin.peek() != '\n' || pasirinkimas < 1 || pasirinkimas > 6)
-            {
-                cout << "Prašau įveskite vieną iš duotų variantų ";
-                cin.clear();
-                cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    { 
+        try
+        {
+            cin >> pasirinkimas;   
+                if(cin.fail() || cin.peek() != '\n')
+                {
+                    cin.clear();
+                    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                    throw std::invalid_argument("Įvedėte ne skaičių.");
+                }
+                if(pasirinkimas < 1 ||  pasirinkimas > 6)
+                    throw std::out_of_range("Neteisingas pasirinkimas! Prašau įveskite vieną iš duotų variantų.");
+                break;
             }
-            else
+            catch(const std::invalid_argument& e)
             {
-                break;               
+                std::cerr << e.what() << " Įveskite dar kartą: " << endl;
+            }
+            catch(const std::out_of_range& e)
+            {
+                std::cerr << e.what() << " Įveskite dar kartą: " << endl;
             }
     }
 
@@ -373,20 +421,29 @@ void meniu(vector < Studentas > &grupe)
         cout << endl;
 
         while (true)
-        {
-            cin >> pasirinkimas;
-                if (cin.fail() || cin.peek() != '\n' || pasirinkimas < 1 || pasirinkimas > 5)
-                {
-                    cout << "Prašau įveskite vieną iš duotų variantų ";
-                    cin.clear();
-                    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        { 
+            try
+            {
+                cin >> pasirinkimas;   
+                    if(cin.fail() || cin.peek() != '\n')
+                    {
+                        cin.clear();
+                        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                        throw std::invalid_argument("Įvedėte ne skaičių.");
+                    }
+                    if(pasirinkimas < 1 ||  pasirinkimas > 5)
+                        throw std::out_of_range("Neteisingas pasirinkimas! Prašau įveskite vieną iš duotų variantų.");
+                    break;
                 }
-                else
+                catch(const std::invalid_argument& e)
                 {
-                    break;               
+                    std::cerr << e.what() << " Įveskite dar kartą: " << endl;
+                }
+                catch(const std::out_of_range& e)
+                {
+                    std::cerr << e.what() << " Įveskite dar kartą: " << endl;
                 }
         }
-        
 
         switch(pasirinkimas)
         {
