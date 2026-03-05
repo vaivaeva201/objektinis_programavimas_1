@@ -28,15 +28,21 @@ void skaityti_faila(vector < Studentas > &grupe)
         system("ls *.txt");
         cout<<"Ivesk failo pavadinima: ";
         cin>>failas;
-        fd.open(failas);
-        if (fd)
+
+        try
         {
+            fd.open(failas);
+            if (!fd)
+            {
+                    throw std::runtime_error("Klaida: nepavyko atidaryti failo!");
+            }
             break;
         }
-        else
-        {
-            std:: cerr << "Failas nerastas! Bandykite dar kartą " << endl;
-        }
+        catch (const std::runtime_error &e)
+	    {
+		    std::cerr << e.what() << endl;
+            fd.clear();
+	    }
     }
 
     auto start = std::chrono::high_resolution_clock::now();
@@ -380,6 +386,7 @@ void meniu(vector < Studentas > &grupe)
                     break;               
                 }
         }
+        
 
         switch(pasirinkimas)
         {
