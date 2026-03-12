@@ -1,5 +1,22 @@
 #include "funkcijos.h"
 
+void failu_generavimas()
+{
+    string pav = "Studentai_" + std::to_string(Studentu_sk) + ".txt";
+    std::ofstream fr(pav);
+
+    RandInt rnd{3, 20};
+    int kiek_paz = rnd();
+    
+    std::ostringstream buferis;
+    buferis << left << setw(20) << "Vardas" << setw(20) << "Pavarde";
+    for (int i = 0; i < kiek_paz; i++)
+    {
+        buferis << setw(20) << "ND" + std::to_string(i+1);
+    }
+    buferis << setw(20) << "Egz." << endl;
+}
+
 void skaiciuoti_viska(Studentas &x)
 {
     double sum = accumulate(x.paz.begin(), x.paz.end(), 0.0);
