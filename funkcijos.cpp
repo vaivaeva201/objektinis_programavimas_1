@@ -41,6 +41,21 @@ void failu_generavimas(int Studentu_sk)
     fr.close();
 }
 
+void studentu_skirstymas(vector < Studentas > &grupe)
+{
+    vector < Studentas > vargsiukai;
+    vector < Studentas > kietakai;
+
+    for (auto& x : grupe)
+    {
+        if (x.Vidurkis < 5.0)
+            vargsiukai.push_back(x);
+        else
+            kietakai.push_back(x);
+    }
+
+}
+
 void skaiciuoti_viska(Studentas &x)
 {
     double sum = accumulate(x.paz.begin(), x.paz.end(), 0.0);
@@ -449,7 +464,7 @@ void meniu(vector < Studentas > &grupe)
 {
     int pasirinkimas = 0;
 
-    while(pasirinkimas != 5)
+    while(pasirinkimas != 6)
     {    
         cout << endl;
         cout << "Pasirinkite programos eigą: " << endl;
@@ -458,7 +473,8 @@ void meniu(vector < Studentas > &grupe)
         cout << "2 - Generuoti pažymius;" << endl;
         cout << "3 - Generuoti studentų vardus, pavardes ir pažymius;" << endl;
         cout << "4 - Nuskaityti duomenis iš failo;" << endl;
-        cout << "5 - Baigti darbą;" << endl;
+        cout << "5 - Testuoti programą;" << endl;
+        cout << "6 - Baigti darbą;" << endl;
         cout << endl;
 
         while (true)
@@ -472,7 +488,7 @@ void meniu(vector < Studentas > &grupe)
                         cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                         throw std::invalid_argument("Įvedėte ne skaičių.");
                     }
-                    if(pasirinkimas < 1 ||  pasirinkimas > 5)
+                    if(pasirinkimas < 1 ||  pasirinkimas > 6)
                         throw std::out_of_range("Neteisingas pasirinkimas! Prašau įveskite vieną iš duotų variantų.");
                     break;
                 }
@@ -563,6 +579,13 @@ void meniu(vector < Studentas > &grupe)
 
                 break;   
             case 5:
+            {
+                cout << "Pasirinkote testuoti programa " << endl;
+                cout << "-----------------------------------------------------------" << endl;
+
+                break;
+            }    
+            case 6:
                 cout << "Pasirinkote baigti darbą " << endl;
                 cout << "-----------------------------------------------------------" << endl;
 
