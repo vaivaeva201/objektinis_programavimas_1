@@ -16,10 +16,12 @@ void failu_generavimas(int Studentu_sk)
 
     RandInt random{1, 10};
     
-    for (int i = 0; i < Studentu_sk; i++) {
+    for (int i = 0; i < Studentu_sk; i++) 
+    {
         fr << left << setw(20) << ("Vardas" + std::to_string(i+1)) << setw(20) << ("Pavarde" + std::to_string(i+1));
         
-        for (int j = 0; j < kiek; j++) {
+        for (int j = 0; j < kiek; j++) 
+        {
             fr << left << setw(20) << random();
         }
         fr << left << setw(20) << random() << "\n";
@@ -36,51 +38,50 @@ void studentu_skirstymas(vector < Studentas > &grupe)
 {
     auto start = std::chrono::high_resolution_clock::now();
 
-    vector < Studentas > vargsiukai;
-    vector < Studentas > kietakai;
+    vector<Studentas> vargsiukai;
+    vector<Studentas> kietakai;
 
-    for (Studentas x : grupe)
+    vargsiukai.reserve(grupe.size() / 2);
+    kietakai.reserve(grupe.size() / 2);
+
+    for (auto &x : grupe) 
     {
         if (x.Vidurkis < 5.0)
-            vargsiukai.push_back(x);
+            vargsiukai.push_back(std::move(x));
         else
-            kietakai.push_back(x);
+            kietakai.push_back(std::move(x));
     }
+    
+    grupe.clear();
+    grupe.shrink_to_fit(); 
 
     auto end = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double> diff = end - start;
-    cout << "Studentu suskirstymas į grupes užtruko: " << diff.count() << " s" << endl;
+    cout << "Skirstymas uztruko: " << std::chrono::duration<double>(end - start).count() << " s" << endl;
 
     isvedimas_i_du_failus(vargsiukai, kietakai);
 }
 
-void isvedimas_i_du_failus (vector < Studentas > vargsiukai, vector < Studentas > kietakai)
+void isvedimas_i_du_failus (vector < Studentas > &vargsiukai, vector < Studentas > &kietakai)
 {
     auto start = std::chrono::high_resolution_clock::now();
 
-    std::ostringstream buferis;
-    buferis << left << setw(20) << "Pavardė" << setw(20) << "Vardas" << setw(20) << "Galutinis (Vid.)" << setw(20) << "Galutinis (Med.)" << endl;
-    buferis << "----------------------------------------------------------------------------" << endl;
-
-    for (const Studentas &x : vargsiukai)
+    auto i_faila = [](string pav, vector<Studentas>& duomenys) 
     {
-        buferis << left << setw(20) << x.Pavarde << setw(20) << x.Vardas << setw(20) << std::fixed << std::setprecision(2) << x.Vidurkis << setw(20) << std::fixed << std::setprecision(2) << x.Mediana << endl;
-    }
-    std::ofstream fr1("vargsiukai.txt");
-    fr1 << buferis.str();
-    fr1.close();
+        std::ofstream fr(pav);
+        fr << left << setw(20) << "Vardas" << setw(20) << "Pavarde" << setw(20) << "Galutinis" << endl;
+        for (const auto &s : duomenys) {
+            fr << left << setw(20) << s.Vardas << setw(20) << s.Pavarde << std::fixed << std::setprecision(2) << s.Vidurkis << "\n";
+        }
+        fr.close();
+    };
 
-    std::ostringstream buferis1;
-    buferis1 << left << setw(20) << "Pavardė" << setw(20) << "Vardas" << setw(20) << "Galutinis (Vid.)" << setw(20) << "Galutinis (Med.)" << endl;
-    buferis1 << "----------------------------------------------------------------------------" << endl;
+    i_faila("vargsiukai.txt", vargsiukai);
+    vargsiukai.clear();
+    vargsiukai.shrink_to_fit();
 
-    for (const Studentas &x : kietakai)
-    {
-        buferis1 << left << setw(20) << x.Pavarde << setw(20) << x.Vardas << setw(20) << std::fixed << std::setprecision(2) << x.Vidurkis << setw(20) << std::fixed << std::setprecision(2) << x.Mediana << endl;
-    }
-    std::ofstream fr2("kietaikai.txt");
-    fr2 << buferis1.str();
-    fr2.close();
+    i_faila("kietaikai.txt", kietakai);
+    kietakai.clear();
+    kietakai.shrink_to_fit();
 
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> diff = end - start;
@@ -105,6 +106,49 @@ void skaiciuoti_viska(Studentas &x)
         mediana = x.paz[x.paz.size() / 2];
     }
     x.Mediana= mediana * 0.4 + x.egz_paz * 0.6;    
+}
+
+void skaityti_faila_automatiskai(string pav, vector<Studentas>& grupe)
+{
+    
+    std::ifstream fd(pav);
+    if (!fd) 
+    {
+        std::cerr << "Klaida: nepavyko atidaryti failo!" << endl;
+        return;
+    }
+
+    auto start = std::chrono::high_resolution_clock::now();
+    string eil;
+    getline(fd, eil);
+
+    while(getline(fd, eil)) 
+    {
+        if(eil.empty()) continue;
+        Studentas A;
+        std::istringstream eilute(eil);
+        eilute >> A.Vardas >> A.Pavarde;
+        
+        int pazymys;
+        while (eilute >> pazymys) 
+        {
+            A.paz.push_back(pazymys);
+        }
+        
+        if (!A.paz.empty()) 
+        {
+            A.egz_paz = A.paz.back();
+            A.paz.pop_back();
+            skaiciuoti_viska(A);
+            grupe.push_back(std::move(A));
+        }
+    }
+    fd.close();
+
+    auto end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> diff = end - start;
+    cout << "Failo nuskaitymas uztruko: " << diff.count() << " s" << endl;
+
 }
 
 void skaityti_faila(vector < Studentas > &grupe)
@@ -619,7 +663,22 @@ void meniu(vector < Studentas > &grupe)
                 //failu_generavimas(100000);
                 //failu_generavimas(1000000);
                 //failu_generavimas(10000000);
+                vector<int> dydziai = {1000, 10000, 100000, 1000000, 10000000};
+                for (auto x : dydziai) {
+                    cout << "Testas su " << x << " įrašų: " << endl;
+                    cout << "-----------------------------------------------------------" << endl;
+                    string failo_pav = "Studentai_" + std::to_string(x) + ".txt";
+                    auto start = std::chrono::high_resolution_clock::now();
 
+                    skaityti_faila_automatiskai(failo_pav, grupe);
+                    studentu_skirstymas(grupe);
+
+                    auto end = std::chrono::high_resolution_clock::now();
+                    std::chrono::duration<double> diff = end - start;
+                    cout << "Visa programa uztruko: " << diff.count() << " s" << endl;
+                    cout << endl;
+                    grupe.clear();
+                }
                 break;
             }    
             case 6:
