@@ -1,6 +1,6 @@
 #include "funkcijos.h"
 
-void failu_generavimas()
+void failu_generavimas(int Studentu_sk)
 {
     string pav = "Studentai_" + std::to_string(Studentu_sk) + ".txt";
     std::ofstream fr(pav);
@@ -12,9 +12,33 @@ void failu_generavimas()
     buferis << left << setw(20) << "Vardas" << setw(20) << "Pavarde";
     for (int i = 0; i < kiek_paz; i++)
     {
-        buferis << setw(20) << "ND" + std::to_string(i+1);
+        buferis << left << setw(20) << "ND" + std::to_string(i+1);
     }
-    buferis << setw(20) << "Egz." << endl;
+    buferis << left << setw(20) << "Egz." << endl;
+
+    RandInt random{1, 10};
+    for (int i = 0; i < Studentu_sk; i++)
+    {
+        Studentas A;
+        A.Vardas = "Vardas" + std::to_string(i+1);
+        A.Pavarde = "Pavarde" + std::to_string(i+1);
+        
+        for (int j = 0; j < kiek_paz; j++)
+        {
+            int pazimys = random();
+            A.paz.push_back(pazimys);
+        }
+        A.egz_paz = random();
+        buferis << left << setw(20) << A.Vardas << setw(20) << A.Pavarde;
+        for(auto x : A.paz)
+        {
+            buferis << left << setw(20) << x;
+        }
+        buferis << left << setw(20) << A.egz_paz << endl;
+    }
+
+    fr << buferis.str();
+    fr.close();
 }
 
 void skaiciuoti_viska(Studentas &x)

@@ -5,6 +5,6 @@ int main(){
 
     vector < Studentas > grupe;
     meniu (grupe);
-    
+    failu_generavimas(10);
     return 0;
 }
