@@ -2,47 +2,40 @@
 
 void failu_generavimas(int Studentu_sk)
 {
+    auto start = std::chrono::high_resolution_clock::now();
     string pav = "Studentai_" + std::to_string(Studentu_sk) + ".txt";
     std::ofstream fr(pav);
 
-    RandInt rnd{3, 20};
-    int kiek_paz = rnd();
-    
-    std::ostringstream buferis;
-    buferis << left << setw(20) << "Vardas" << setw(20) << "Pavarde";
-    for (int i = 0; i < kiek_paz; i++)
-    {
-        buferis << left << setw(20) << "ND" + std::to_string(i+1);
-    }
-    buferis << left << setw(20) << "Egz." << endl;
+    fr << left << setw(20) << "Vardas" << setw(20) << "Pavarde";
+    RandInt rnd{3, 18};
+    int kiek = rnd();
+
+    for (int i = 1; i <= kiek; i++) 
+        fr << left << setw(20) << "ND" + std::to_string(i);
+    fr << left << setw(20) << "Egz." << endl;
 
     RandInt random{1, 10};
-    for (int i = 0; i < Studentu_sk; i++)
-    {
-        Studentas A;
-        A.Vardas = "Vardas" + std::to_string(i+1);
-        A.Pavarde = "Pavarde" + std::to_string(i+1);
+    
+    for (int i = 0; i < Studentu_sk; i++) {
+        fr << left << setw(20) << ("Vardas" + std::to_string(i+1)) << setw(20) << ("Pavarde" + std::to_string(i+1));
         
-        for (int j = 0; j < kiek_paz; j++)
-        {
-            int pazimys = random();
-            A.paz.push_back(pazimys);
+        for (int j = 0; j < kiek; j++) {
+            fr << left << setw(20) << random();
         }
-        A.egz_paz = random();
-        buferis << left << setw(20) << A.Vardas << setw(20) << A.Pavarde;
-        for(auto x : A.paz)
-        {
-            buferis << left << setw(20) << x;
-        }
-        buferis << left << setw(20) << A.egz_paz << endl;
+        fr << left << setw(20) << random() << "\n";
     }
-
-    fr << buferis.str();
     fr.close();
+
+    auto end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> diff = end - start;
+    cout << "Failo " << pav << " sukurimas uztruko: " << diff.count() << " s" << endl;
+
 }
 
 void studentu_skirstymas(vector < Studentas > &grupe)
 {
+    auto start = std::chrono::high_resolution_clock::now();
+
     vector < Studentas > vargsiukai;
     vector < Studentas > kietakai;
 
@@ -54,17 +47,22 @@ void studentu_skirstymas(vector < Studentas > &grupe)
             kietakai.push_back(x);
     }
 
-    isvedimas_i_du_failus(vargsiukai, kietakai);
+    auto end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> diff = end - start;
+    cout << "Studentu suskirstymas į grupes užtruko: " << diff.count() << " s" << endl;
 
+    isvedimas_i_du_failus(vargsiukai, kietakai);
 }
 
 void isvedimas_i_du_failus (vector < Studentas > vargsiukai, vector < Studentas > kietakai)
 {
+    auto start = std::chrono::high_resolution_clock::now();
+
     std::ostringstream buferis;
     buferis << left << setw(20) << "Pavardė" << setw(20) << "Vardas" << setw(20) << "Galutinis (Vid.)" << setw(20) << "Galutinis (Med.)" << endl;
     buferis << "----------------------------------------------------------------------------" << endl;
 
-    for (Studentas x : vargsiukai)
+    for (const Studentas &x : vargsiukai)
     {
         buferis << left << setw(20) << x.Pavarde << setw(20) << x.Vardas << setw(20) << std::fixed << std::setprecision(2) << x.Vidurkis << setw(20) << std::fixed << std::setprecision(2) << x.Mediana << endl;
     }
@@ -72,17 +70,21 @@ void isvedimas_i_du_failus (vector < Studentas > vargsiukai, vector < Studentas 
     fr1 << buferis.str();
     fr1.close();
 
-    std::ostringstream buferis;
-    buferis << left << setw(20) << "Pavardė" << setw(20) << "Vardas" << setw(20) << "Galutinis (Vid.)" << setw(20) << "Galutinis (Med.)" << endl;
-    buferis << "----------------------------------------------------------------------------" << endl;
+    std::ostringstream buferis1;
+    buferis1 << left << setw(20) << "Pavardė" << setw(20) << "Vardas" << setw(20) << "Galutinis (Vid.)" << setw(20) << "Galutinis (Med.)" << endl;
+    buferis1 << "----------------------------------------------------------------------------" << endl;
 
-    for (Studentas x : kietakai)
+    for (const Studentas &x : kietakai)
     {
-        buferis << left << setw(20) << x.Pavarde << setw(20) << x.Vardas << setw(20) << std::fixed << std::setprecision(2) << x.Vidurkis << setw(20) << std::fixed << std::setprecision(2) << x.Mediana << endl;
+        buferis1 << left << setw(20) << x.Pavarde << setw(20) << x.Vardas << setw(20) << std::fixed << std::setprecision(2) << x.Vidurkis << setw(20) << std::fixed << std::setprecision(2) << x.Mediana << endl;
     }
     std::ofstream fr2("kietaikai.txt");
-    fr2 << buferis.str();
+    fr2 << buferis1.str();
     fr2.close();
+
+    auto end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> diff = end - start;
+    cout << "Grupių įrašymas į failus užtruko: " << diff.count() << " s" << endl;
 
 }
 
@@ -612,6 +614,11 @@ void meniu(vector < Studentas > &grupe)
             {
                 cout << "Pasirinkote testuoti programa " << endl;
                 cout << "-----------------------------------------------------------" << endl;
+                //failu_generavimas(1000);
+                //failu_generavimas(10000);
+                //failu_generavimas(100000);
+                //failu_generavimas(1000000);
+                //failu_generavimas(10000000);
 
                 break;
             }    

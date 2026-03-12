@@ -11,6 +11,8 @@ struct Studentas {
 };
 
 void failu_generavimas(int Studentu_sk);
+void studentu_skirstymas(vector < Studentas > &grupe);
+void isvedimas_i_du_failus (vector < Studentas > vargsiukai, vector < Studentas > kietakai);
 void skaiciuoti_viska(Studentas &x);
 void skaityti_faila(vector < Studentas > &grupe);
 void duomenu_ivedimas(vector < Studentas > &grupe);
