@@ -46,13 +46,43 @@ void studentu_skirstymas(vector < Studentas > &grupe)
     vector < Studentas > vargsiukai;
     vector < Studentas > kietakai;
 
-    for (auto& x : grupe)
+    for (Studentas x : grupe)
     {
         if (x.Vidurkis < 5.0)
             vargsiukai.push_back(x);
         else
             kietakai.push_back(x);
     }
+
+    isvedimas_i_du_failus(vargsiukai, kietakai);
+
+}
+
+void isvedimas_i_du_failus (vector < Studentas > vargsiukai, vector < Studentas > kietakai)
+{
+    std::ostringstream buferis;
+    buferis << left << setw(20) << "Pavardė" << setw(20) << "Vardas" << setw(20) << "Galutinis (Vid.)" << setw(20) << "Galutinis (Med.)" << endl;
+    buferis << "----------------------------------------------------------------------------" << endl;
+
+    for (Studentas x : vargsiukai)
+    {
+        buferis << left << setw(20) << x.Pavarde << setw(20) << x.Vardas << setw(20) << std::fixed << std::setprecision(2) << x.Vidurkis << setw(20) << std::fixed << std::setprecision(2) << x.Mediana << endl;
+    }
+    std::ofstream fr1("vargsiukai.txt");
+    fr1 << buferis.str();
+    fr1.close();
+
+    std::ostringstream buferis;
+    buferis << left << setw(20) << "Pavardė" << setw(20) << "Vardas" << setw(20) << "Galutinis (Vid.)" << setw(20) << "Galutinis (Med.)" << endl;
+    buferis << "----------------------------------------------------------------------------" << endl;
+
+    for (Studentas x : kietakai)
+    {
+        buferis << left << setw(20) << x.Pavarde << setw(20) << x.Vardas << setw(20) << std::fixed << std::setprecision(2) << x.Vidurkis << setw(20) << std::fixed << std::setprecision(2) << x.Mediana << endl;
+    }
+    std::ofstream fr2("kietaikai.txt");
+    fr2 << buferis.str();
+    fr2.close();
 
 }
 
