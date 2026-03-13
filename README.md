@@ -24,4 +24,4 @@ Vidutiniai studentų failų tyrimo rezultatai (trys iteracijos)
 
 Vieno testo rezultatai:
 
-![alt text](<Screenshot 2026-03-13 at 00.47.45.png>)
+<img width="550" height="535" alt="Screenshot 2026-03-13 at 00 47 45" src="https://github.com/user-attachments/assets/da252122-aedf-4fe4-85c5-c6c9f0b0d5d6" />
