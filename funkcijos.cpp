@@ -57,7 +57,8 @@ void studentu_skirstymas(vector < Studentas > &grupe)
 
     auto end = std::chrono::high_resolution_clock::now();
     cout << "Skirstymas uztruko: " << std::chrono::duration<double>(end - start).count() << " s" << endl;
-
+    rikiavimas(vargsiukai);
+    rikiavimas(kietakai);
     isvedimas_i_du_failus(vargsiukai, kietakai);
 }
 
@@ -476,6 +477,7 @@ bool pagal_med_maz(const Studentas &a, const Studentas &b)
 void rikiavimas(vector < Studentas > &grupe)
 {
     int pasirinkimas = 0;
+    
     cout << "Pasirinkite rikiavimo būdą:" << endl;
     cout << "-----------------------------------------------------------" << endl;
     cout << "1 - Rikiuoti pagal vardą;" << endl;
@@ -490,7 +492,7 @@ void rikiavimas(vector < Studentas > &grupe)
     { 
         try
         {
-            cin >> pasirinkimas;   
+             cin >> pasirinkimas;   
                 if(cin.fail() || cin.peek() != '\n')
                 {
                     cin.clear();
