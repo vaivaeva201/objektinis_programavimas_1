@@ -43,6 +43,8 @@ void studento_ivedimas(Studentas* &grupe, int &kiek, Studentas naujas)
     Studentas* new_grupe = new Studentas[kiek + 1];
 
     for (int i = 0; i < kiek; i++)
+
+    
     {
         new_grupe[i].Vardas = grupe[i].Vardas;
         new_grupe[i].Pavarde = grupe[i].Pavarde;
