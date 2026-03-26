@@ -3,7 +3,8 @@
 
 # Kompiuterio charakteristikos
 
-| Testuojamos sistemos parametrai |
+**Testuojamos sistemos parametrai**
+| Parametras | Reikšmė |
 | --------------------- | --------------------- |
 | CPU | Apple M1, 8 core |
 | RAM | 8 GB | 
