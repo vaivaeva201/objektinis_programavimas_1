@@ -46,18 +46,52 @@ void skaityti_failus (string pav, Container& grupe)
 template < typename Container >
 void rusiavimas_did (Container& grupe)
 {
-    if constexpr (std::is_same_v<Container, std::list<Studentas>>) {
-        grupe.sort([](const Studentas &a, const Studentas &b) {
+    if constexpr (std::is_same_v<Container, std::list<Studentas>>)
+    {
+        grupe.sort([](const Studentas &a, const Studentas &b) 
+        {
             return a.Vidurkis > b.Vidurkis;
         });
-    } else {
-        sort(grupe.begin(), grupe.end(), [](const Studentas& a, const Studentas& b) {
+    } 
+    else 
+    {
+        sort(grupe.begin(), grupe.end(), [](const Studentas& a, const Studentas& b) 
+        {
             return a.Vidurkis > b.Vidurkis;
         });
 
     }
 }
 
+template < typename Container >
+void stunedu_skirstymas (Container& grupe)
+{
+    Container vargsiukai;
+    Container kietakai;
+
+    if constexpr (std::is_same_v<Container, std::vector<Studentas>>) 
+    {
+        vargsiukai.reserve(grupe.size() / 2);
+        kietakai.reserve(grupe.size() / 2);
+    }
+
+    for (auto &x : grupe) 
+    {
+        if (x.Vidurkis < 5.0)
+            vargsiukai.push_back(std::move(x));
+        else
+            kietakai.push_back(std::move(x));
+    }
+    
+    if constexpr(std::is_same_v<Container, vector<Studentas>> || std::is_same_v<Container, deque<Studentas>>)
+    {
+        vargsiukai.shrink_to_fit();
+        kietakai.shrink_to_fit();
+    }
+
+    grupe.clear();
+    grupe.shrink_to_fit(); 
+}
 
 
 #endif
