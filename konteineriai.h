@@ -43,6 +43,21 @@ void skaityti_failus (string pav, Container& grupe)
     fd.close();
 }
 
+template < typename Container >
+void rusiavimas_did (Container& grupe)
+{
+    if constexpr (std::is_same_v<Container, std::list<Studentas>>) {
+        grupe.sort([](const Studentas &a, const Studentas &b) {
+            return a.Vidurkis > b.Vidurkis;
+        });
+    } else {
+        sort(grupe.begin(), grupe.end(), [](const Studentas& a, const Studentas& b) {
+            return a.Vidurkis > b.Vidurkis;
+        });
+
+    }
+}
+
 
 
 #endif

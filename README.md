@@ -10,3 +10,4 @@
 | RAM | 8 GB | 
 | SSD | 256 GB |
 
+**Konteinerių tyrimas**
