@@ -1,5 +1,5 @@
 main:
-	g++ -std=c++17 strategija_1.cpp funkcijos.cpp -o programa
+	g++ -std=c++17 strategija_3.cpp funkcijos.cpp -o programa
 
 run: main
 	./programa

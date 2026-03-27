@@ -3,6 +3,7 @@
 #include "antrastes.h"
 #include <list>
 #include <type_traits>
+#include <algorithm>
 
 using std:: deque;
 using std:: list;
@@ -134,6 +135,24 @@ void antra_strategija (Container& grupe)
 }
 
 template <typename Container>
+void trecia_strategija(Container& grupe) {
+    Container vargsiukai;
+    
+    auto it = std::stable_partition(grupe.begin(), grupe.end(), [](const Studentas& s) 
+    {
+        return s.Vidurkis >= 5.0;
+    });
+
+    std::move(it, grupe.end(), std::back_inserter(vargsiukai));
+    grupe.erase(it, grupe.end());
+    
+    if constexpr(std::is_same_v<Container, std::vector<Studentas>>)
+     {
+        grupe.shrink_to_fit();
+    }
+}
+
+template <typename Container>
 void tyrimas (string failas, Container& grupe, string tipas)
 {
     double nuskaitym = 0, rikiav = 0, skirst = 0;
@@ -218,6 +237,35 @@ void strategijos_du_tyrimas (string failas, Container& grupe, string tipas)
 
         s = std::chrono::high_resolution_clock::now();
         antra_strategija(grupe);
+        e = std::chrono::high_resolution_clock::now();
+        skirst += std::chrono::duration<double>(e - s).count();
+
+    }
+    cout << "Programa su " << tipas << " vidutiniškai užtruko:      " << nuskaitym + rikiav + skirst << " s" << endl;
+}
+
+template <typename Container>
+void strategijos_trys_tyrimas (string failas, Container& grupe, string tipas)
+{
+    double nuskaitym = 0, rikiav = 0, skirst = 0;
+
+
+
+    for (int i = 0; i < 1; i++) 
+    {
+
+        auto s = std::chrono::high_resolution_clock::now();
+        skaityti_failus(failas, grupe);
+        auto e = std::chrono::high_resolution_clock::now();
+        nuskaitym += std::chrono::duration<double>(e - s).count();
+
+        s = std::chrono::high_resolution_clock::now();
+        rusiavimas_did(grupe);
+        e = std::chrono::high_resolution_clock::now();
+        rikiav += std::chrono::duration<double>(e - s).count();
+
+        s = std::chrono::high_resolution_clock::now();
+        trecia_strategija(grupe);
         e = std::chrono::high_resolution_clock::now();
         skirst += std::chrono::duration<double>(e - s).count();
 
