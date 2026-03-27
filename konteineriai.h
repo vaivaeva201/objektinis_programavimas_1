@@ -2,6 +2,7 @@
 #define KONTEINERIAI_H
 #include "antrastes.h"
 #include <list>
+#include <type_traits>
 
 using std:: deque;
 using std:: list;
@@ -9,6 +10,7 @@ using std:: list;
 template < typename Container >
 void skaityti_failus (string pav, Container& grupe)
 {
+
     std::ifstream fd(pav);
     if (!fd) 
     {
@@ -42,6 +44,7 @@ void skaityti_failus (string pav, Container& grupe)
     }
     fd.close();
 }
+
 
 template < typename Container >
 void rusiavimas_did (Container& grupe)
@@ -87,10 +90,10 @@ void stunedu_skirstymas (Container& grupe)
     {
         vargsiukai.shrink_to_fit();
         kietakai.shrink_to_fit();
+        grupe.shrink_to_fit();
     }
 
-    grupe.clear();
-    grupe.shrink_to_fit(); 
+    grupe.clear(); 
 }
 
 
