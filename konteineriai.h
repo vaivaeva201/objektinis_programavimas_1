@@ -193,7 +193,7 @@ void strategiju_tyrimas (string failas, Container& grupe, string tipas)
 
 
 
-    for (int i = 0; i < 1; i++) 
+    for (int i = 0; i < 3; i++) 
     {
 
         auto s = std::chrono::high_resolution_clock::now();
@@ -212,7 +212,7 @@ void strategiju_tyrimas (string failas, Container& grupe, string tipas)
         skirst += std::chrono::duration<double>(e - s).count();
 
     }
-    cout << "Programa su " << tipas << " vidutiniškai užtruko:      " << nuskaitym + rikiav + skirst << " s" << endl;
+    cout << "Programa su " << tipas << " vidutiniškai užtruko:      " << (nuskaitym + rikiav + skirst) / 3.0 << " s" << endl;
 }
 
 template <typename Container>
@@ -222,7 +222,7 @@ void strategijos_du_tyrimas (string failas, Container& grupe, string tipas)
 
 
 
-    for (int i = 0; i < 1; i++) 
+    for (int i = 0; i < 3; i++) 
     {
 
         auto s = std::chrono::high_resolution_clock::now();
@@ -241,7 +241,7 @@ void strategijos_du_tyrimas (string failas, Container& grupe, string tipas)
         skirst += std::chrono::duration<double>(e - s).count();
 
     }
-    cout << "Programa su " << tipas << " vidutiniškai užtruko:      " << nuskaitym + rikiav + skirst << " s" << endl;
+    cout << "Programa su " << tipas << " vidutiniškai užtruko:      " << (nuskaitym + rikiav + skirst) / 3.0 << " s" << endl;
 }
 
 template <typename Container>
@@ -251,7 +251,7 @@ void strategijos_trys_tyrimas (string failas, Container& grupe, string tipas)
 
 
 
-    for (int i = 0; i < 1; i++) 
+    for (int i = 0; i < 3; i++) 
     {
 
         auto s = std::chrono::high_resolution_clock::now();
@@ -270,7 +270,7 @@ void strategijos_trys_tyrimas (string failas, Container& grupe, string tipas)
         skirst += std::chrono::duration<double>(e - s).count();
 
     }
-    cout << "Programa su " << tipas << " vidutiniškai užtruko:      " << nuskaitym + rikiav + skirst << " s" << endl;
+    cout << "Programa su " << tipas << " vidutiniškai užtruko:      " << (nuskaitym + rikiav + skirst) / 3.0 << " s" << endl;
 }
 
 #endif

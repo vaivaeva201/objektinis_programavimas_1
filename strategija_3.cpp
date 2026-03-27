@@ -8,7 +8,7 @@ int main(){
     list < Studentas > studentai_l;
     deque < Studentas > studentai_d;
 
-    cout << "Pirmos strategijos testavimas " << endl;
+    cout << "Trečios strategijos testavimas " << endl;
     cout << "-----------------------------------------------------------" << endl;
 
     string failas = pasirinkimas();

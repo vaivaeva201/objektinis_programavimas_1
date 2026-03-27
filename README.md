@@ -1,6 +1,27 @@
 # Pirmas_Laboratorinis
 # v1.0 versija
 
+
+<h2>Naudojimosi instrukcija</h2>
+<ol>
+    <li>Susiinstaliuoti <a href="https://gnuwin32.sourceforge.net/packages/make.htm">MAKE</a></li>
+    <li>Atsidaryti terminalą</li>
+    <li>Klonuoti programos repozitoriją</li>
+
+    git clone https://github.com/vaivaeva201/objektinis_programavimas_1
+
+ <li>Terminale rašyti žemiau esančią komandą, norint paleisti pradinę programą
+ <pre><code>make main</code></pre>
+ Terminale rašyti žemiau esančią komandą, norint paleisti konteinerių testavimą
+ <pre><code>make run0</code></pre></li>
+ Terminale rašyti žemiau esančią komandą, norint paleisti 1 strategiją
+ <pre><code>make run1</code></pre></li>
+ Terminale rašyti žemiau esančią komandą, norint paleisti 2 strategiją
+ <pre><code>make run2</code></pre></li>
+  Terminale rašyti žemiau esančią komandą, norint paleisti 3 strategiją
+ <pre><code>make run3</code></pre></li>
+</ol>
+
 # Kompiuterio charakteristikos
 
 **Testuojamos sistemos parametrai**
