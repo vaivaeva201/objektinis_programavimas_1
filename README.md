@@ -12,6 +12,7 @@
 
 **Pradinis konteinerių tyrimas**
 | Failo dydis | Konteinerio tipas | Failų nuskaitymas | Rikiavimas | Skirstymas | Bendras laikas|
+| :--- | :--- | :--- | :--- | :--- | :--- |
 | 1000 | Vektor | 0.0204036 s | 0.000716361 s | 0.000484708 s | 0.0216047 s |
 | 1000 | List | 0.0166401 s | 0.000375708 s | 0.00493514 s | 0.0175093 s|
 | 1000 | Deque | 0.0167215 s | 0.000772055 s | 0.0003275 s | 0.0178211 s |
