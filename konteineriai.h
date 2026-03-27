@@ -96,5 +96,26 @@ void stunedu_skirstymas (Container& grupe)
     grupe.clear(); 
 }
 
+template <typename Container>
+void pirma_strategija(Container& grupe){
+    Container vargsiukai;
+    Container kietakai;
+
+    for (const auto &s : grupe)
+    {
+        if (s.Vidurkis < 5){
+            vargsiukai.push_back(s);
+        } else if (s.Vidurkis >= 5){
+            kietakai.push_back(s);
+        }
+    }
+
+    if constexpr(std::is_same_v<Container, vector<Studentas>> || std::is_same_v<Container, deque<Studentas>>){
+        vargsiukai.shrink_to_fit();
+        kietakai.shrink_to_fit();
+    }
+}
+
+
 
 #endif
