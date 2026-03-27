@@ -117,6 +117,23 @@ void pirma_strategija(Container& grupe){
 }
 
 template <typename Container>
+void antra_strategija (Container& grupe)
+{
+    Container vargsiukai;
+    while (grupe.back().Vidurkis < 5) 
+    {
+        vargsiukai.push_back(grupe.back());
+        grupe.pop_back();
+    }
+
+    if constexpr(std::is_same_v<Container, vector<Studentas>> || std::is_same_v<Container, deque<Studentas>>)
+    {
+        grupe.shrink_to_fit();
+        vargsiukai.shrink_to_fit();
+    }
+}
+
+template <typename Container>
 void tyrimas (string failas, Container& grupe, string tipas)
 {
     double nuskaitym = 0, rikiav = 0, skirst = 0;
@@ -171,7 +188,36 @@ void strategiju_tyrimas (string failas, Container& grupe, string tipas)
         rikiav += std::chrono::duration<double>(e - s).count();
 
         s = std::chrono::high_resolution_clock::now();
-        stunedu_skirstymas(grupe);
+        pirma_strategija(grupe);
+        e = std::chrono::high_resolution_clock::now();
+        skirst += std::chrono::duration<double>(e - s).count();
+
+    }
+    cout << "Programa su " << tipas << " vidutiniškai užtruko:      " << nuskaitym + rikiav + skirst << " s" << endl;
+}
+
+template <typename Container>
+void strategijos_du_tyrimas (string failas, Container& grupe, string tipas)
+{
+    double nuskaitym = 0, rikiav = 0, skirst = 0;
+
+
+
+    for (int i = 0; i < 1; i++) 
+    {
+
+        auto s = std::chrono::high_resolution_clock::now();
+        skaityti_failus(failas, grupe);
+        auto e = std::chrono::high_resolution_clock::now();
+        nuskaitym += std::chrono::duration<double>(e - s).count();
+
+        s = std::chrono::high_resolution_clock::now();
+        rusiavimas_did(grupe);
+        e = std::chrono::high_resolution_clock::now();
+        rikiav += std::chrono::duration<double>(e - s).count();
+
+        s = std::chrono::high_resolution_clock::now();
+        antra_strategija(grupe);
         e = std::chrono::high_resolution_clock::now();
         skirst += std::chrono::duration<double>(e - s).count();
 
