@@ -32,5 +32,22 @@
 | 10 000 000 | Deque | 191.484 s | 5.788 s | 7.82104 s | 205.093 s |
 
 
-# Pirma strategija
+# Antra strategija
 
+| Failo dydis | Konteinerio tipas | Bendras laikas|
+| :--- | :--- | :--- |
+| 1000 | Vektor | 0.0330468 s |
+| 1000 | List | 0.0200763 s |
+| 1000 | Deque | 0.017967 s |
+| 10 000 | Vektor | 0.196402 s |
+| 10 000 | List | 0.177692 s |
+| 10 000 | Deque | 0.183674 s |
+| 100 000 | Vektor | 1.82267 s |
+| 100 000 | List | 1.81831 s |
+| 100 000 | Deque | 1.82855 s |
+| 1 000 000 | Vektor | 19.0521 s |
+| 1 000 000 | List | 18.8333 s |
+| 1 000 000 | Deque | 18.4765 s |
+| 10 000 000 | Vektor | 200.141 s |
+| 10 000 000 | List | 214.759 s |
+| 10 000 000 | Deque | 209.221 s|
