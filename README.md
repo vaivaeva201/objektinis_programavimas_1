@@ -1,25 +1,37 @@
 # Pirmas_Laboratorinis
-# v1.0 versija
+
+Programa suteikia galimybę apdoroti studentų duomenis. Vartotojas gali pasirinti tarp kelių programos funkciijų:
+1. Įvesti visus studentų duomenis ranka;
+2. Sugeneruoti pažymius ranka, o studentų vardus ir pavardes vesti ranka;
+3. SUgeneruoti visus studnetu duomenis;
+4. Pasirinkti skaityti duomenis iš failų;
+5. Atlikti programos testatimus;
+
+Taip pat programoje yra trys strategijos, kurios skirtos parodyti kaip kinda programos veikimo laikas nuo naudojamų konteinerių (vector, list, deque) duomenų skirstymo į dvi grupes (pažangių ir nepažangių) metu.
+
+Pirmoje strategijoje skirstymas vyksta į du to paties tipo konteinerius, antrosios strategijos metu sukuriamas tik vienas papildomas konteineris ir į jį perkeliami nepažangūs mokiniai, o pažangūs lieka pradiniame. Trečioji strategija yra optimizuota antroji strategija naudojant Standard Template Library (STL)
+
 
 
 <h2>Naudojimosi instrukcija</h2>
 <ol>
-    <li>Susiinstaliuoti <a href="https://gnuwin32.sourceforge.net/packages/make.htm">MAKE</a></li>
+    <li>Susiinstaliuoti <b>make</b> (Windows naudotojams rekomenduojama per <a href="https://gnuwin32.sourceforge.net/packages/make.htm">GNUWin32</a>)</li>
     <li>Atsidaryti terminalą</li>
-    <li>Klonuoti programos repozitoriją</li>
-
-    git clone https://github.com/vaivaeva201/objektinis_programavimas_1
-
- <li>Terminale rašyti žemiau esančią komandą, norint paleisti pradinę programą
- <pre><code>make main</code></pre>
- Terminale rašyti žemiau esančią komandą, norint paleisti konteinerių testavimą
- <pre><code>make run0</code></pre></li>
- Terminale rašyti žemiau esančią komandą, norint paleisti 1 strategiją
- <pre><code>make run1</code></pre></li>
- Terminale rašyti žemiau esančią komandą, norint paleisti 2 strategiją
- <pre><code>make run2</code></pre></li>
-  Terminale rašyti žemiau esančią komandą, norint paleisti 3 strategiją
- <pre><code>make run3</code></pre></li>
+    <li>Klonuoti programos repozitoriją:
+        <pre><code>git clone https://github.com/vaivaeva201/objektinis_programavimas_1</code></pre>
+    </li>
+    <li><b>Užeiti į projekto aplanką:</b>
+        <pre><code>cd objektinis_programavimas_1</code></pre>
+    </li>
+    <li>Paleisti norimą funkciją:
+        <ul>
+            <li><code>make main</code> - pagrindinė programa</li>
+            <li><code>make run0</code> - pradinio tyrimo paleidimas</li>
+            <li><code>make run1</code> - 1 strategijos testavimas</li>
+            <li><code>make run2</code> - 2 strategijos testavimas</li>
+            <li><code>make run3</code> - 3 strategijos testavimas</li>
+        </ul>
+    </li>
 </ol>
 
 # Kompiuterio charakteristikos
@@ -73,6 +85,8 @@
 | 10 000 000 | List | 218.99 s |
 | 10 000 000 | Deque | 199.045 s |
 
+
+
 # Antra strategija
 
 | Failo dydis | Konteinerio tipas | Bendras laikas|
@@ -112,3 +126,4 @@
 | 10 000 000 | Vektor | 194.153 s |
 | 10 000 000 | List | 226.6 s |
 | 10 000 000 | Deque | 200.114 s |
+
