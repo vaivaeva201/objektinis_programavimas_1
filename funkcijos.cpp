@@ -152,6 +152,34 @@ void skaityti_faila_automatiskai(string pav, vector<Studentas>& grupe)
 
 }
 
+string pasirinkimas ()
+{
+    string failas;
+    std:: ifstream fd;
+    while (true)
+    {
+        system("ls *.txt");
+        cout<<"Ivesk failo pavadinima: ";
+        cin>>failas;
+
+        try
+        {
+            fd.open(failas);
+            if (!fd)
+            {
+                    throw std::runtime_error("Klaida: nepavyko atidaryti failo!");
+            }
+            break;
+        }
+        catch (const std::runtime_error &e)
+	    {
+		    std::cerr << e.what() << endl;
+            fd.clear();
+	    }
+    }
+    return failas;
+}
+
 void skaityti_faila(vector < Studentas > &grupe)
 {
     string failas;

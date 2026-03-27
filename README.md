@@ -10,6 +10,8 @@
 | RAM | 8 GB | 
 | SSD | 256 GB |
 
+# Pradinis tyrimas
+
 **Pradinis konteinerių tyrimas**
 | Failo dydis | Konteinerio tipas | Failų nuskaitymas | Rikiavimas | Skirstymas | Bendras laikas|
 | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -28,3 +30,7 @@
 | 10 000 000 | Vektor | 191.887 s | 5.12481 s | 10.1508 s | 207.733 s |
 | 10 000 000 | List | 192.436 s | 21.5431 s | 35.7543 s | 249.733 s |
 | 10 000 000 | Deque | 191.484 s | 5.788 s | 7.82104 s | 205.093 s |
+
+
+# Pirma strategija
+
