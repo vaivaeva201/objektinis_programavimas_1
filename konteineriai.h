@@ -48,7 +48,7 @@ void skaityti_failus (string pav, Container& grupe)
 
 
 template < typename Container >
-void rusiavimas_did (Container& grupe)
+void rusiavimas_maz (Container& grupe)
 {
     if constexpr (std::is_same_v<Container, std::list<Studentas>>)
     {
@@ -115,11 +115,14 @@ void pirma_strategija(Container& grupe){
         vargsiukai.shrink_to_fit();
         kietakai.shrink_to_fit();
     }
+
+    isvedimas(vargsiukai, kietakai);
 }
 
 template <typename Container>
 void antra_strategija (Container& grupe)
 {
+
     Container vargsiukai;
     while (grupe.back().Vidurkis < 5) 
     {
@@ -132,6 +135,9 @@ void antra_strategija (Container& grupe)
         grupe.shrink_to_fit();
         vargsiukai.shrink_to_fit();
     }
+
+    isvedimas(vargsiukai, grupe);
+
 }
 
 template <typename Container>
@@ -150,6 +156,8 @@ void trecia_strategija(Container& grupe) {
      {
         grupe.shrink_to_fit();
     }
+
+    isvedimas(vargsiukai, grupe);    
 }
 
 template <typename Container>
@@ -202,7 +210,7 @@ void strategiju_tyrimas (string failas, Container& grupe, string tipas)
         nuskaitym += std::chrono::duration<double>(e - s).count();
 
         s = std::chrono::high_resolution_clock::now();
-        rusiavimas_did(grupe);
+        rusiavimas_maz(grupe);
         e = std::chrono::high_resolution_clock::now();
         rikiav += std::chrono::duration<double>(e - s).count();
 
@@ -231,7 +239,7 @@ void strategijos_du_tyrimas (string failas, Container& grupe, string tipas)
         nuskaitym += std::chrono::duration<double>(e - s).count();
 
         s = std::chrono::high_resolution_clock::now();
-        rusiavimas_did(grupe);
+        rusiavimas_maz(grupe);
         e = std::chrono::high_resolution_clock::now();
         rikiav += std::chrono::duration<double>(e - s).count();
 
@@ -260,7 +268,7 @@ void strategijos_trys_tyrimas (string failas, Container& grupe, string tipas)
         nuskaitym += std::chrono::duration<double>(e - s).count();
 
         s = std::chrono::high_resolution_clock::now();
-        rusiavimas_did(grupe);
+        rusiavimas_maz(grupe);
         e = std::chrono::high_resolution_clock::now();
         rikiav += std::chrono::duration<double>(e - s).count();
 
@@ -271,6 +279,26 @@ void strategijos_trys_tyrimas (string failas, Container& grupe, string tipas)
 
     }
     cout << "Programa su " << tipas << " vidutiniškai užtruko:      " << (nuskaitym + rikiav + skirst) / 3.0 << " s" << endl;
+}
+
+template < typename Container >
+void isvedimas (Container &vargsiukai, Container &kietakai)
+{
+
+    auto i_faila = [](string pav, Container& duomenys) 
+    {
+        std::ofstream fr(pav);
+        fr << left << setw(20) << "Vardas" << setw(20) << "Pavarde" << setw(20) << "Galutinis" << endl;
+        for (const auto &s : duomenys) {
+            fr << left << setw(20) << s.Vardas << setw(20) << s.Pavarde << std::fixed << std::setprecision(2) << s.Vidurkis << "\n";
+        }
+        fr.close();
+    };
+
+    i_faila("vargsiukai.txt", vargsiukai);
+
+
+    i_faila("kietaikai.txt", kietakai);
 }
 
 #endif
