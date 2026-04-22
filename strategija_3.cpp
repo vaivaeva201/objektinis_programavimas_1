@@ -20,8 +20,8 @@ int main(){
     cout << "Rezultatai: " << endl;
     cout << "-----------------------------------------------------------" << endl;
     strategijos_trys_tyrimas(failas, studentai_v, "vekor");
-    strategijos_trys_tyrimas(failas, studentai_l, "list");
-    strategijos_trys_tyrimas(failas, studentai_d, "deque");
+  //  strategijos_trys_tyrimas(failas, studentai_l, "list");
+ //  strategijos_trys_tyrimas(failas, studentai_d, "deque");
 
     return 0;
 }

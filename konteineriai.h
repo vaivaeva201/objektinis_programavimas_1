@@ -169,14 +169,14 @@ void tyrimas (string failas, Container& grupe, string tipas)
 
     for (int i = 0; i < 3; i++) 
     {
-
+        grupe.clear(); 
         auto s = std::chrono::high_resolution_clock::now();
         skaityti_failus(failas, grupe);
         auto e = std::chrono::high_resolution_clock::now();
         nuskaitym += std::chrono::duration<double>(e - s).count();
 
         s = std::chrono::high_resolution_clock::now();
-        rusiavimas_did(grupe);
+        rusiavimas_maz(grupe);
         e = std::chrono::high_resolution_clock::now();
         rikiav += std::chrono::duration<double>(e - s).count();
 
@@ -203,7 +203,7 @@ void strategiju_tyrimas (string failas, Container& grupe, string tipas)
 
     for (int i = 0; i < 3; i++) 
     {
-
+        grupe.clear();
         auto s = std::chrono::high_resolution_clock::now();
         skaityti_failus(failas, grupe);
         auto e = std::chrono::high_resolution_clock::now();
@@ -232,7 +232,7 @@ void strategijos_du_tyrimas (string failas, Container& grupe, string tipas)
 
     for (int i = 0; i < 3; i++) 
     {
-
+        grupe.clear();
         auto s = std::chrono::high_resolution_clock::now();
         skaityti_failus(failas, grupe);
         auto e = std::chrono::high_resolution_clock::now();
@@ -261,7 +261,7 @@ void strategijos_trys_tyrimas (string failas, Container& grupe, string tipas)
 
     for (int i = 0; i < 3; i++) 
     {
-
+        grupe.clear();
         auto s = std::chrono::high_resolution_clock::now();
         skaityti_failus(failas, grupe);
         auto e = std::chrono::high_resolution_clock::now();
@@ -288,7 +288,7 @@ void isvedimas (Container &vargsiukai, Container &kietakai)
     auto i_faila = [](string pav, Container& duomenys) 
     {
         std::ofstream fr(pav);
-        fr << left << setw(20) << "Vardas" << setw(20) << "Pavarde" << setw(20) << "Galutinis" << endl;
+        fr << left << setw(20) << "Vardas" << setw(20) << "Pavarde" << setw(20) << "Galutinis:" << endl;
         for (const auto &s : duomenys) {
             fr << left << setw(20) << s.Vardas << setw(20) << s.Pavarde << std::fixed << std::setprecision(2) << s.Vidurkis << "\n";
         }
